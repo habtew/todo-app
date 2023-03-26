@@ -1,7 +1,8 @@
-import data from './data.js'
+// import data from './data.js'
 const todoContainer = document.querySelector('.todo-container')
 const img = document.querySelector('.img')
-
+let data = JSON.parse(localStorage.getItem('todos')) || []
+console.log(data)
 document.body.addEventListener('click', (e)=>{
     // console.log()
     if(e.target.matches('.btn')){
@@ -10,20 +11,45 @@ document.body.addEventListener('click', (e)=>{
     if(e.target.matches('input')){
         handleInput(e)
     }
+    if(e.target.matches('.fav-icon')){
+        handleFavIcon(e)
+    }
 })
 
 function handleDelete(e){
     const target = data.findIndex(item => item.id == e.target.id)
     data.splice(target, 1)
+    let updatedData = JSON.stringify(data)
     renderHtml(data)
+    localStorage.setItem('todos', updatedData)
 }
 
 function handleInput(e){
     e.target.addEventListener('keypress', (e)=>{
-        if(e.key == 'Enter'){
-            console.log(e.target.value)
+        if(e.key == 'Enter' && e.target.value !== ''){
+            const inpu = {
+                todo: e.target.value,
+                id: data.length + 1,
+                isComplete: false
+            }
+            data.unshift(inpu)
+            localStorage.setItem('todos', JSON.stringify(data))
+            e.target.value = ''
+            renderHtml(data)
         }
     })
+}
+
+function handleFavIcon(e){
+    console.log(e.target.id)
+    data.map(item => {
+        if(item.id == e.target.id){
+            item.isComplete = !item.isComplete
+        }
+    })
+    let updatedData = JSON.stringify(data)
+    localStorage.setItem('todos', updatedData)
+    console.log(data)
 }
 
 function renderHtml(data){
@@ -31,11 +57,11 @@ function renderHtml(data){
     html += data.map(item => {
         return `
         <div class="todo-items" >
-            <div class="fav-icon fav-icon-toggle" id="${item.id}">       
+            <div class="fav-icon fav-icon-toggle" id=${item.id}>       
             </div>
-            <p id="${item.id}">${item.todo}</p>
+            <p id=${item.id}>${item.todo}</p>
             <button >
-                <img src="./images/icon-cross.svg" id="${item.id}" class="btn"/>
+                <img src="./images/icon-cross.svg" id=${item.id} class="btn"/>
             </button>
         </div>
             `
@@ -60,9 +86,3 @@ renderHtml(data)
 const todos = Array.from(document.querySelectorAll('.fav-icon'))
 
 
-todos.map(item => {
-    item.addEventListener('click', (e)=>{
-        e.target.classList.toggle('fav-icon-toggle')
-        // img.classList.toggle('none')
-    })
-})
