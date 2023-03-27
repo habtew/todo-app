@@ -114,7 +114,10 @@ main{
     border: none;
     color: white;
 }
-
+.strike{
+    text-decoration: line-through;
+    opacity: .5;
+}
 @media (min-width: 500px){
     .container{
             max-width: 450px;
