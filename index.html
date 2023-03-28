@@ -22,43 +22,37 @@
     <div class="header-container container">
       <div>
         <h1>Todo</h1>
-        <span><img src="./images/icon-sun.svg" /></span>  
+        <span><img src="./images/icon-sun.svg" class="dark-mode"/></span>  
       </div>
-      <input type="text" placeholder="create new to do" />
+      <input type="text" placeholder="create new to do" class="light-toggle"/>
     </div>
     
   </header>
-  <main>
+  <main class="light-toggle">
     <div class="container">
       
-      <div class="todo-container">
-        <div class="todo-items">
+      <div class="todo-container light-toggle">
+        <!-- <div class="todo-items">
           <div class="fav-icon">
             
           </div>
           <p>this is the first item</p>
           <button>X</button>
-        </div>
+        </div> -->
       </div>
 
 
-      <div class="todo-nav">
-        <button class="all-todo todo-nav-item ">All</button>
-        <button class="active-todo todo-nav-item">Active </button>
-        <button class="complete-todo todo-nav-item">Completed</button>
-        <button class="clear todo-nav-item" >Clear completed</button>
+      <div class="todo-nav light-toggle">
+        <div>
+          <button class="all-todo todo-nav-item light-toggle">All</button>
+          <button class="active-todo todo-nav-item light-toggle">Active </button>
+          <button class="complete-todo todo-nav-item light-toggle">Completed</button>
+        </div>
+        <button class="clear todo-nav-item light-toggle" >Clear completed</button>
       </div>
     </div>
     
   </main>
- 
-  <!-- Clear Completed
-  Drag and drop to reorder list -->
-
-  <footer class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </footer>
   <script src="./index.js" type="module"></script>
 </body>
 </html>

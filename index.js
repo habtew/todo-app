@@ -1,8 +1,9 @@
-// import data from './data.js'
 const todoContainer = document.querySelector('.todo-container')
 const img = document.querySelector('.img')
+
+let isDarkMode = true
 let data = JSON.parse(localStorage.getItem('todos')) || []
-console.log(data)
+
 document.body.addEventListener('click', (e)=>{
     if(e.target.matches('.btn')){
         handleDelete(e)
@@ -22,7 +23,14 @@ document.body.addEventListener('click', (e)=>{
     if(e.target.matches('.all-todo')){
         renderHtml(data)
     }
+    if(e.target.matches('.dark-mode')){
+        handleDarkMode(e)
+    }
+    if(e.target.matches('.clear')){
+        handleClearCompleted(e)
+    }
 })
+
 
 function handleDelete(e){
     const target = data.findIndex(item => item.id == e.target.id)
@@ -37,7 +45,7 @@ function handleInput(e){
         if(e.key == 'Enter' && e.target.value !== ''){
             const inpu = {
                 todo: e.target.value,
-                id: e.target.value.length + data.length + 1,
+                id: `${e.target.value} ${data.length}`,
                 isComplete: false
             }
             data.unshift(inpu)
@@ -70,38 +78,43 @@ function handleCompletedTodo(e){
     renderHtml(target)
 }
 
+function handleClearCompleted(){
+    const target = data.filter(item => !item.isComplete)
+    let updatedData = JSON.stringify(target)
+    localStorage.setItem('todos', updatedData)
+    location.reload()
+
+}
+
+
+function handleDarkMode(e){
+    const elements = document.querySelectorAll('.light-toggle')
+    for(let i=0; i< elements.length; i++){
+        elements[i].classList.toggle('light')
+    }
+}
 
 function renderHtml(data){
     let html = ''
     html += data.map(item => {
         return `
         <div class="todo-items" >
-            <div class="fav-icon ${item.isComplete?'fav-icon-toggle':''}" id=${item.id}>
+            <div class="fav-icon ${item.isComplete?'fav-icon-toggle':''}" id="${item.id}">
+            <img src="./images/icon-check.svg" class="${!item.isComplete && 'none'}"/>
             </div>
-            <p id=${item.id} class="${item.isComplete && 'strike'}">${item.todo}</p>
+            <p id="${item.id}" class="${item.isComplete && 'strike'}">${item.todo}</p>
             <button >
-                <img src="./images/icon-cross.svg" id=${item.id} class="btn"/>
+                <img src="./images/icon-cross.svg" id="${item.id}" class="btn"/>
             </button>
         </div>
             `
-    })
+    }).join('')
 
     todoContainer.innerHTML = html
 }
 
 renderHtml(data)
 
-
-
-
-// document.body.addEventListener('click', (e)=>{
-//     if(e.target.closest('.fav-icon')){
-//         console.log(e.target.classList)
-//         e.target.classList.toggle = 'fav-icon-toggle'
-//     }
-// })
-
-
-const todos = Array.from(document.querySelectorAll('.fav-icon'))
+// const todos = Array.from(document.querySelectorAll('.fav-icon'))
 
 
