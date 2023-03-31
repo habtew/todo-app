@@ -1,6 +1,5 @@
 const todoContainer = document.querySelector('.todo-container')
 const img = document.querySelector('.img')
-
 let isDarkMode = true
 let data = JSON.parse(localStorage.getItem('todos')) || []
 
@@ -57,7 +56,6 @@ function handleInput(e){
 }
 
 function handleFavIcon(e){
-    console.log(e.target.id)
     data.map(item => {
         if(item.id == e.target.id){
             item.isComplete = !item.isComplete
@@ -113,8 +111,7 @@ function renderHtml(data){
     todoContainer.innerHTML = html
 }
 
+
+
 renderHtml(data)
-
-// const todos = Array.from(document.querySelectorAll('.fav-icon'))
-
 

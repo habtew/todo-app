@@ -5,6 +5,7 @@
 body{
     margin: 0;
     padding: 0;
+    font-size: 1rem;
 }
 
 
@@ -14,17 +15,22 @@ header{
     background-position: center center;
     background-size: cover;
 }
+header h1{
+    margin-top: 0
+}
 .header-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding:2em 1em;
     color: white;
+    /* background-color: green; */
 }
 .header-container div{
     display: flex;
     justify-content: space-between;
-    padding: 1em 0
+    padding:  0;
+    /* background: yellow */
 }
 
 header h1{
@@ -50,6 +56,7 @@ main{
     background: hsl(235, 24%, 19%);
     position: relative;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    min-height: calc(100vh - 183px);
 }
 
 .todo-container{
@@ -72,9 +79,6 @@ main{
     margin-block: 10px;
 }
 
-.todo-items p{
-    font-size: 18px;
-}
 .fav-icon{
     width: 30px;
     height: 30px;
@@ -112,7 +116,7 @@ main{
     text-align: center;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around
 }
 
 .todo-nav-item{
@@ -121,7 +125,7 @@ main{
     color: white;
     padding: .7em 1em;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: .8rem;
 }
 .todo-nav-item:hover{
     color: lightgray
@@ -150,5 +154,8 @@ main{
         background-repeat: no-repeat;
         background-position: center center;
         background-size: cover;
+    }
+    .todo-nav-item{
+        font-size: 1rem;
     }
 }
